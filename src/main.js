@@ -1,24 +1,26 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const oldalBetoltes = async () => {
+ 
+    const response = await fetch("/public/test.json");
+    const data = await response.json();
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+    console.log(data)
 
-setupCounter(document.querySelector('#counter'))
+    const tbody = document.getElementById("table-tartalom");
+  
+    data.forEach(elem => {
+      const tr = document.createElement("tr")
+
+      const nev = document.createElement("td")
+      nev.textContent = elem.nev
+
+      const vernyomas = document.createElement("td")
+      vernyomas.textContent = elem.vernyomas
+
+      tr.appendChild(nev)
+      tr.appendChild(vernyomas)
+
+      tbody.appendChild(tr)
+    }) 
+  }
+
+document.addEventListener("DOMContentLoaded", oldalBetoltes)
